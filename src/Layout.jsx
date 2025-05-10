@@ -7,7 +7,7 @@ export default function Layout() {
       <nav className="fixed top-0 left-0 right-0 nav p-2 px-10 flex align-middle justify-between shadow-2xl z-1000">
         <div className="logo">
           <Link to="/" className="navLink flex text-center">
-            <img src="logo.png" alt="" />
+            <img src="/vite-react-elon-musk/logo.png" alt="" />
           </Link>
         </div>
         <div className="link justify-evenly ">
@@ -29,14 +29,14 @@ export default function Layout() {
         </div>
       </nav>
       <div className="banner">
-        <img src="banner.png" alt="" />
+        <img src="/vite-react-elon-musk/banner.png" alt="" />
       </div>
       <main className="">
         <Outlet />
       </main>
       <footer>
         <div className="mars overflow-hidden">
-          <img className="mars" src="mars.png" alt="" />
+          <img className="/vite-react-elon-musk/mars" src="mars.png" alt="" />
         </div>
       </footer>
       <div className="contact h-15 flex justify-center items-center">

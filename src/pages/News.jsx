@@ -4,7 +4,11 @@ const News = () => {
       <div className="newsCards flex flex-wrap justify-center">
         <div className="newsCard border flex w-100 m-2 p-3">
           <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img src="news.webp" alt="" className="w-max" />
+            <img
+              src="/vite-react-elon-musk/news.webp"
+              alt=""
+              className="w-max"
+            />
           </div>
           <div className="newsR w-2/3 flex flex-col justify-center align-middle">
             <div className="newsTitle ">
@@ -16,7 +20,11 @@ const News = () => {
         </div>
         <div className="newsCard border flex w-100 m-2 p-3">
           <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img src="news.webp" alt="" className="w-max" />
+            <img
+              src="/vite-react-elon-musk/news.webp"
+              alt=""
+              className="w-max"
+            />
           </div>
           <div className="newsR w-2/3 flex flex-col justify-center align-middle">
             <div className="newsTitle ">
@@ -28,7 +36,11 @@ const News = () => {
         </div>
         <div className="newsCard border flex w-100 m-2 p-3">
           <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img src="news.webp" alt="" className="w-max" />
+            <img
+              src="/vite-react-elon-musk/news.webp"
+              alt=""
+              className="w-max"
+            />
           </div>
           <div className="newsR w-2/3 flex flex-col justify-center align-middle">
             <div className="newsTitle ">
@@ -40,7 +52,11 @@ const News = () => {
         </div>
         <div className="newsCard border flex w-100 m-2 p-3">
           <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img src="news.webp" alt="" className="w-max" />
+            <img
+              src="/vite-react-elon-musk/news.webp"
+              alt=""
+              className="w-max"
+            />
           </div>
           <div className="newsR w-2/3 flex flex-col justify-center align-middle">
             <div className="newsTitle ">
@@ -52,7 +68,11 @@ const News = () => {
         </div>
         <div className="newsCard border flex w-100 m-2 p-3">
           <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img src="news.webp" alt="" className="w-max" />
+            <img
+              src="/vite-react-elon-musk/news.webp"
+              alt=""
+              className="w-max"
+            />
           </div>
           <div className="newsR w-2/3 flex flex-col justify-center align-middle">
             <div className="newsTitle ">

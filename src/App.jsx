@@ -12,7 +12,7 @@ import Layout from "./Layout";
 import "./App.css";
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/vite-react-elon-musk">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -24,7 +24,6 @@ function App() {
           <Route path="/member" element={<Member />} />
           <Route path="*" element={<Error />} />
         </Route>
-        
       </Routes>
     </BrowserRouter>
   );
