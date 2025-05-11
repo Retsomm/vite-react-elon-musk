@@ -56,3 +56,7 @@ main {
 .timeContainer {
   background-color: #c0b8b8;
 }
+.newsCard {
+  background-color: #d9d9d9;
+  color: black;
+}

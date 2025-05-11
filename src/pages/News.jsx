@@ -1,181 +1,64 @@
-const News = () => {
+import { useState, useEffect } from "react";
+
+export default function News() {
+  const [news, setNews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const response = await fetch("/api/newsApi");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("Invalid content type, expected JSON");
+        }
+
+        const data = await response.json();
+        setNews(Array.isArray(data) ? data : []);
+        setIsLoading(false);
+      } catch (err) {
+        console.error("抓取新聞失敗:", err);
+        setNews([]);
+        setError("伺服器錯誤，請稍後再試");
+        setIsLoading(false);
+      }
+    }
+
+    fetchNews();
+  }, []);
+
+  if (isLoading) return <div>載入中...</div>;
+  if (error) return <div style={{ color: "red" }}>{error}</div>;
+
   return (
-    <div className="newsContainer px-10 flex flex-col justify-center">
-      <div className="newsCards flex flex-wrap justify-center">
-        <div className="newsCard border flex w-100 m-2 p-3">
-          <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img
-              src="/vite-react-elon-musk/news.webp"
-              alt=""
-              className="w-max"
-            />
-          </div>
-          <div className="newsR w-2/3 flex flex-col justify-center align-middle">
-            <div className="newsTitle ">
-              Tesla denies contacting headhunters to replace Musk
-            </div>
-
-            <div className="newsDate mt-3 text-xs">2025-05-01</div>
-          </div>
-        </div>
-        <div className="newsCard border flex w-100 m-2 p-3">
-          <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img
-              src="/vite-react-elon-musk/news.webp"
-              alt=""
-              className="w-max"
-            />
-          </div>
-          <div className="newsR w-2/3 flex flex-col justify-center align-middle">
-            <div className="newsTitle ">
-              Tesla denies contacting headhunters to replace Musk
-            </div>
-
-            <div className="newsDate mt-3 text-xs">2025-05-01</div>
-          </div>
-        </div>
-        <div className="newsCard border flex w-100 m-2 p-3">
-          <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img
-              src="/vite-react-elon-musk/news.webp"
-              alt=""
-              className="w-max"
-            />
-          </div>
-          <div className="newsR w-2/3 flex flex-col justify-center align-middle">
-            <div className="newsTitle ">
-              Tesla denies contacting headhunters to replace Musk
-            </div>
-
-            <div className="newsDate mt-3 text-xs">2025-05-01</div>
-          </div>
-        </div>
-        <div className="newsCard border flex w-100 m-2 p-3">
-          <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img
-              src="/vite-react-elon-musk/news.webp"
-              alt=""
-              className="w-max"
-            />
-          </div>
-          <div className="newsR w-2/3 flex flex-col justify-center align-middle">
-            <div className="newsTitle ">
-              Tesla denies contacting headhunters to replace Musk
-            </div>
-
-            <div className="newsDate mt-3 text-xs">2025-05-01</div>
-          </div>
-        </div>
-        <div className="newsCard border flex w-100 m-2 p-3">
-          <div className="newsL w-1/3 flex justify-center items-center mr-3">
-            <img
-              src="/vite-react-elon-musk/news.webp"
-              alt=""
-              className="w-max"
-            />
-          </div>
-          <div className="newsR w-2/3 flex flex-col justify-center align-middle">
-            <div className="newsTitle ">
-              Tesla denies contacting headhunters to replace Musk
-            </div>
-
-            <div className="newsDate mt-3 text-xs">2025-05-01</div>
-          </div>
-        </div>
-      </div>
-      <nav aria-label="Page navigation example" className="mt-5">
-        <ul class=" -space-x-px h-8 text-sm flex justify-center">
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span class="sr-only">Previous</span>
-              <svg
-                class="w-2.5 h-2.5 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
+    <div>
+      {news.length === 0 ? (
+        <p>目前沒有新聞</p>
+      ) : (
+        <div className="newsContainer flex flex-wrap justify-center ">
+          {news.map((article, index) => (
+            <div className="newsCard flex flex-col p-3 m-3 w-100 rounded-xl justify-between" key={index}>
+              <h3>標題：{article.title}</h3>
+              <h3>來源：{article.source}</h3>
+              <p>發布日期：{new Date(article.pubDate).toLocaleString()}</p>
+              <a
+                className="readmore border-b-black p-1 px-5 w-fit mt-3 rounded-md hover:bg-orange-900 bg-amber-800 text-amber-50"
+                href={article.link}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5 1 1 5l4 4"
-                />
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              1
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              2
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              aria-current="page"
-              class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-            >
-              3
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              4
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              5
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-            >
-              <span class="sr-only">Next</span>
-              <svg
-                class="w-2.5 h-2.5 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 9 4-4-4-4"
-                />
-              </svg>
-            </a>
-          </li>
-        </ul>
-      </nav>
+                閱讀更多
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
-};
-
-export default News;
+}
