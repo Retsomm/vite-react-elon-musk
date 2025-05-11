@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { functions } from "../firebase"; // ← 根據實際位置調整
-import { httpsCallable } from "firebase/functions";
+
+import { functions, httpsCallable } from "../firebase";
 
 export default function News() {
   const [news, setNews] = useState([]);
@@ -10,8 +10,8 @@ export default function News() {
   useEffect(() => {
     async function fetchNews() {
       try {
-        const getNews = httpsCallable(functions, "getNews");
-        const result = await getNews();
+        const getNews = httpsCallable(functions, "newsApi"); // <-- 這裡是你 export 的 callable 函數名稱
+        const result = await getNews(); // onCall 不需要傳任何參數就留空
         setNews(result.data.articles || []);
         setIsLoading(false);
       } catch (err) {

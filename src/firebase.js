@@ -1,7 +1,7 @@
+// firebase.js
 import { initializeApp } from "firebase/app";
-import { getFunctions } from "firebase/functions";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
-// Firebase 配置從環境變數中讀取
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -12,8 +12,7 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// 初始化 Firebase
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
 
-export { functions };
+export { functions, httpsCallable };
