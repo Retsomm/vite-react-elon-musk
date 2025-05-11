@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { functions } from "../firebase"; // ← 根據實際位置調整
+import { httpsCallable } from "firebase/functions";
 
 export default function News() {
   const [news, setNews] = useState([]);
@@ -8,19 +10,9 @@ export default function News() {
   useEffect(() => {
     async function fetchNews() {
       try {
-        const response = await fetch("/api/newsApi");
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new Error("Invalid content type, expected JSON");
-        }
-
-        const data = await response.json();
-        setNews(Array.isArray(data) ? data : []);
+        const getNews = httpsCallable(functions, "getNews");
+        const result = await getNews();
+        setNews(result.data.articles || []);
         setIsLoading(false);
       } catch (err) {
         console.error("抓取新聞失敗:", err);
@@ -41,9 +33,12 @@ export default function News() {
       {news.length === 0 ? (
         <p>目前沒有新聞</p>
       ) : (
-        <div className="newsContainer flex flex-wrap justify-center ">
+        <div className="newsContainer flex flex-wrap justify-center">
           {news.map((article, index) => (
-            <div className="newsCard flex flex-col p-3 m-3 w-100 rounded-xl justify-between" key={index}>
+            <div
+              className="newsCard flex flex-col p-3 m-3 w-100 rounded-xl justify-between"
+              key={index}
+            >
               <h3>標題：{article.title}</h3>
               <h3>來源：{article.source}</h3>
               <p>發布日期：{new Date(article.pubDate).toLocaleString()}</p>

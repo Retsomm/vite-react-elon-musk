@@ -21,5 +21,10 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      external: ['firebase/functions'], // 將這個模組標記為外部依賴
+    },
+  },
   base: "/vite-react-elon-musk/", // 确保 base 配置正确
 });
