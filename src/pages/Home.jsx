@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import { Link } from "react-router-dom";
 
 export default function Home() {
@@ -18,7 +17,7 @@ export default function Home() {
           </div>
           <div className="homeCard m-3 md:w-130 sm:w-100">
             <Link to="/news">
-              <img src="/vite-react-elon-musk/news.png" alt=""/>
+              <img src="/vite-react-elon-musk/news.png" alt="" />
             </Link>
           </div>
           <div className="homeCard m-3 md:w-130 sm:w-100">
