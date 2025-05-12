@@ -10,9 +10,12 @@ import Member from "./pages/Member";
 import Error from "./pages/Error";
 import Layout from "./Layout";
 import "./App.css";
+import ScrollToTop from "./component/ScrollToTop";
+
 function App() {
   return (
     <BrowserRouter basename="/vite-react-elon-musk">
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
