@@ -1,4 +1,4 @@
-import { onCall } from "firebase-functions/v2/https";
+import { onCall, HttpsError } from "firebase-functions/v2/https";
 import axios from "axios";
 import { parseStringPromise } from "xml2js";
 
@@ -29,7 +29,7 @@ export const newsApi = onCall(
       return { articles };
     } catch (error) {
       console.error("抓取新聞失敗:", error.message);
-      throw new Error("伺服器錯誤，請稍後再試。");
+      throw new HttpsError("internal", "伺服器錯誤，請稍後再試。");
     }
   }
 );

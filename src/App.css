@@ -63,3 +63,10 @@ main {
 .accordion {
   background-color: #c0b8b8;
 }
+.open {
+  display: block;
+}
+.hamLists {
+  background-color: #c0b8b8;
+  
+}
